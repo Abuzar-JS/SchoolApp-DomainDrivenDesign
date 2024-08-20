@@ -4,8 +4,6 @@ import (
 	"data/course/controller"
 	"data/course/repository"
 	"data/course/service"
-	schoolRepo "data/school/repository"
-	studentRepo "data/student/repository"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
@@ -15,8 +13,7 @@ import (
 // Courses router
 func CourseRouter(router *gin.Engine, db *gorm.DB, validate *validator.Validate) *gin.Engine {
 	courseRepository := repository.NewCourseRepositoryImpl(db)
-	schoolRepository := schoolRepo.NewSchoolRepositoryImpl(db)
-	StudentRepository := studentRepo.NewStudentRepositoryImpl(db)
+
 
 	courseService := service.NewCourseServiceImpl(courseRepository, validate, schoolRepository, StudentRepository)
 

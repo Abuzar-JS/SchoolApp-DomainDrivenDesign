@@ -1,7 +1,6 @@
 package postgres
 
 import (
-	"data/helper"
 	"data/school/domain"
 	"fmt"
 
@@ -54,7 +53,9 @@ func (u *SchoolPostgres) Delete(schoolId int) error {
 func (u *SchoolPostgres) GetAll() []domain.School {
 	var School []domain.School
 	result := u.Db.Order("id").Find(&School)
-	helper.ReturnError(result.Error)
+	if result.Error != nil {
+		return nil
+	}
 	return School
 }
 

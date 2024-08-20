@@ -3,9 +3,8 @@ package main
 import (
 	"data/config"
 	courseRouter "data/course/controller/router"
-	"data/helper"
-	schoolRouter "data/school/controller/router"
-	studentRouter "data/student/controller/router"
+
+	"fmt"
 
 	"net/http"
 
@@ -32,6 +31,8 @@ func main() {
 	}
 
 	err := server.ListenAndServe()
-	helper.ReturnError(err)
+	if err != nil {
+		fmt.Println("server not started")
+	}
 
 }
