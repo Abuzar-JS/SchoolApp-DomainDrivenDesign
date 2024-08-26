@@ -2,7 +2,9 @@ package main
 
 import (
 	"data/config"
-	courseRouter "data/course/controller/router"
+	courseRoutes "data/course/presentation/http"
+	schoolRoutes "data/school/presentation/http"
+	studentRoutes "data/student/presentation/http"
 
 	"fmt"
 
@@ -21,9 +23,9 @@ func main() {
 
 	ginRouter := gin.Default()
 
-	schoolRouter.SchoolRouter(ginRouter, db, validate)
-	studentRouter.StudentRouter(ginRouter, db, validate)
-	courseRouter.CourseRouter(ginRouter, db, validate)
+	schoolRoutes.RegisterSchoolRoutes(ginRouter, db, validate)
+	studentRoutes.RegisterStudentRoutes(ginRouter, db, validate)
+	courseRoutes.RegisterCourseRoutes(ginRouter, db, validate)
 
 	server := &http.Server{
 		Addr:    ":8080",

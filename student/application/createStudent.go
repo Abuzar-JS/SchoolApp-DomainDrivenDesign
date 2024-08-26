@@ -18,7 +18,7 @@ func (s CreateStudentRequest) Validate(ctx context.Context) error {
 		return fmt.Errorf("name or class cannot be empty")
 	}
 	if s.SchoolID <= 0 {
-		return fmt.Errorf("id must be greater then 0")
+		return fmt.Errorf("school id must be greater than 0")
 	}
 
 	return nil

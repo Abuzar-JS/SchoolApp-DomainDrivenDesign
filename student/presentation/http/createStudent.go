@@ -14,7 +14,7 @@ func NewCreateStudent(
 ) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		schoolID := ctx.Param("school_id")
-		id, err := strconv.Atoi(schoolID)
+		ID, err := strconv.Atoi(schoolID)
 		if err != nil {
 			ctx.JSON(http.StatusBadRequest, gin.H{
 				"message": err.Error(),
@@ -33,7 +33,7 @@ func NewCreateStudent(
 		request := application.CreateStudentRequest{
 			Name:     body.Name,
 			Class:    body.Class,
-			SchoolID: id,
+			SchoolID: ID,
 		}
 
 		student, err := service(ctx.Request.Context(), request)
