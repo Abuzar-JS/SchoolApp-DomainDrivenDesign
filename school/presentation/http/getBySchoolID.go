@@ -22,13 +22,13 @@ func NewGetBySchoolID(
 			return
 		}
 
-		school := getById(ctx.Request.Context(), ID)
-		// if err != nil {
-		// 	ctx.JSON(404, gin.H{
-		// 		"message": err.Error(),
-		// 	})
-		// 	return
-		// }
+		school, err := getById(ctx.Request.Context(), ID)
+		if err != nil {
+			ctx.JSON(http.StatusBadRequest, gin.H{
+				"message": err.Error(),
+			})
+			return
+		}
 
 		ctx.JSON(http.StatusOK, gin.H{
 			"message": "school found",

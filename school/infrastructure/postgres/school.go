@@ -63,8 +63,10 @@ func (u *SchoolPostgres) GetBySchoolID(schoolId int) (School domain.School, err 
 	var school domain.School
 	result := u.Db.First(&school, schoolId)
 	if result.Error != nil {
+		fmt.Println("school nishta")
 		return school, fmt.Errorf("school not found")
 	}
+	fmt.Println("sc found")
 
 	return school, nil
 }

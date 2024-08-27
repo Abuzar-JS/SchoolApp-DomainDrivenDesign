@@ -1,5 +1,6 @@
 package domain
 
 type School struct {
-	ID int
+	ID   int
+	Name string
 }

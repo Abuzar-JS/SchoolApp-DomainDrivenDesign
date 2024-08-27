@@ -2,10 +2,9 @@ package http
 
 import (
 	"data/school"
-	schoolPostgres "data/school/infrastructure/postgres"
 	"data/student/application"
-	"data/student/domain"
 	"data/student/infrastructure/postgres"
+	schoolClient "data/student/infrastructure/school"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
@@ -15,12 +14,10 @@ import (
 func RegisterRoutes(router *gin.Engine, database *gorm.DB, validate *validator.Validate, sc school.Client) *gin.Engine {
 	studentRepo := postgres.NewStudentPostgres(database)
 
-	schoolRepo := schoolPostgres.NewSchoolPostgres(database)
-
 	studentRouter := router.Group("/api/v1/schools")
 
 	studentRouter.GET("/:school_id/students", NewGetStudentBySchoolID(
-		application.NewGetStudentBySchoolID(studentRepo, domain.SchoolClient),
+		application.NewGetStudentBySchoolID(studentRepo, schoolClient.NewSchoolDomainClient(sc)),
 	))
 
 	studentRouter.GET("/:school_id/students/:student_id", NewGetByStudentID(

@@ -15,9 +15,12 @@ func NewGetStudentBySchoolID(
 ) GetStudentBySchoolID {
 
 	return func(schoolID int) ([]domain.Student, error) {
-		ID, err := schoolClient.GetStudentByIDClient(context.Background(), schoolID)
+		fmt.Println("sc id", schoolID)
+
+		_, err := schoolClient.GetStudentByIDClient(context.Background(), schoolID)
 		if err != nil {
-			return nil, fmt.Errorf("no school found with ID %v", ID)
+			return nil, fmt.Errorf("no school found with ID %d", schoolID)
+
 		}
 		students, err := studentRepo.GetBySchoolID(schoolID)
 		if err != nil {
