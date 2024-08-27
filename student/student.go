@@ -2,6 +2,7 @@ package student
 
 import (
 	"data/school"
+	"data/student/domain"
 	"data/student/domain/student"
 	"data/student/infrastructure/postgres"
 	"data/student/presentation/http"
@@ -16,6 +17,11 @@ type client struct {
 }
 
 type Client interface {
+	GetStudentByIdClient(studentId int) (Student domain.Student, err error)
+}
+
+func (c *client) GetStudentByIdClient(studentId int) (Student domain.Student, err error) {
+	return c.studentRepo.GetStudentById(studentId)
 }
 
 func InitiateAndRegister(router *gin.Engine, database *gorm.DB, validate *validator.Validate, sc school.Client) Client {

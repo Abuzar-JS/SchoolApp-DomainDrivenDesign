@@ -3,8 +3,8 @@ package application
 import (
 	"context"
 	"data/course/domain/course"
-	"data/school/domain/school"
-	"data/student/domain/student"
+	"data/course/domain/schoolClient"
+	"data/course/domain/studentClient"
 	"fmt"
 )
 
@@ -29,18 +29,18 @@ type UpdateCourse func(ctx context.Context, request UpdateCourseRequest) error
 
 func NewUpdateCourse(
 	courseRepo course.CourseRepository,
-	studentRepo student.StudentRepository,
-	schoolRepo school.SchoolRepository,
+	studentClient studentClient.StudentClient,
+	schoolClient schoolClient.SchoolClient,
 ) UpdateCourse {
 	return func(ctx context.Context, request UpdateCourseRequest) error {
 
-		scID, err := schoolRepo.GetBySchoolID(request.SchoolID)
+		_, err := schoolClient.GetBySchoolIdClient(context.Background(), request.SchoolID)
 		if err != nil {
-			return fmt.Errorf(" no school found with ID %v", scID)
+			return fmt.Errorf(" no school found with ID %v", request.SchoolID)
 
 		}
 
-		stID, err := studentRepo.GetStudentById(*request.StudentID)
+		stID, err := studentClient.GetStudentByIdClient(context.Background(), *request.StudentID)
 		if err != nil {
 			return fmt.Errorf(" no student found with ID %v", stID)
 		}

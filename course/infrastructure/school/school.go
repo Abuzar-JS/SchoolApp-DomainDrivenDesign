@@ -2,8 +2,8 @@ package school
 
 import (
 	"context"
+	"data/course/domain/schoolClient"
 	"data/school"
-	"data/student/domain/schoolClient"
 	"fmt"
 )
 

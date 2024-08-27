@@ -17,10 +17,10 @@ type client struct {
 }
 
 type Client interface {
-	GetStudentByIdClient(ctx context.Context, locationID int) (domain.School, error)
+	GetBySchoolIdClient(ctx context.Context, locationID int) (domain.School, error)
 }
 
-func (c *client) GetStudentByIdClient(ctx context.Context, schoolID int) (domain.School, error) {
+func (c *client) GetBySchoolIdClient(ctx context.Context, schoolID int) (domain.School, error) {
 	return c.schoolRepo.GetBySchoolID(schoolID)
 }
 

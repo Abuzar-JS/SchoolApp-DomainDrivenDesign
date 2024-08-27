@@ -1,10 +1,11 @@
 package application
 
 import (
+	"context"
 	"data/course/domain"
 	"data/course/domain/course"
-	"data/school/domain/school"
-	"data/student/domain/student"
+	"data/course/domain/schoolClient"
+	"data/course/domain/studentClient"
 	"fmt"
 )
 
@@ -17,18 +18,18 @@ type GetCourseByStudentID func(GetCourseRequestByStudentID) ([]domain.Course, er
 
 func NewGetCourseByStudentID(
 	courseRepo course.CourseRepository,
-	studentRepo student.StudentRepository,
-	schoolRepo school.SchoolRepository,
+	studentClient studentClient.StudentClient,
+	schoolClient schoolClient.SchoolClient,
 ) GetCourseByStudentID {
 	return func(request GetCourseRequestByStudentID) ([]domain.Course, error) {
 
-		scID, err := schoolRepo.GetBySchoolID(request.SchoolID)
+		_, err := schoolClient.GetBySchoolIdClient(context.Background(), request.SchoolID)
 		if err != nil {
-			return nil, fmt.Errorf(" no school found with ID %v", scID)
+			return nil, fmt.Errorf(" no school found with ID %v", request.SchoolID)
 
 		}
 
-		stID, err := studentRepo.GetStudentById(request.StudentID)
+		stID, err := studentClient.GetStudentByIdClient(context.Background(), request.StudentID)
 		if err != nil {
 			return nil, fmt.Errorf(" no student found with ID %v", stID)
 		}
