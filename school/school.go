@@ -13,14 +13,14 @@ import (
 )
 
 type client struct {
-	schoolRepo school.SchoolRepository
+	schoolRepo school.Repository
 }
 
 type Client interface {
-	GetBySchoolIdClient(ctx context.Context, locationID int) (domain.School, error)
+	GetBySchoolID(ctx context.Context, locationID int) (domain.School, error)
 }
 
-func (c *client) GetBySchoolIdClient(ctx context.Context, schoolID int) (domain.School, error) {
+func (c *client) GetBySchoolID(ctx context.Context, schoolID int) (domain.School, error) {
 	return c.schoolRepo.GetBySchoolID(schoolID)
 }
 

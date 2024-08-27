@@ -8,7 +8,7 @@ import (
 type GetAllSchool func() []domain.School
 
 func NewGetAllSchool(
-	schoolRepo school.SchoolRepository,
+	schoolRepo school.Repository,
 ) GetAllSchool {
 	return func() []domain.School {
 		schools := schoolRepo.GetAll()

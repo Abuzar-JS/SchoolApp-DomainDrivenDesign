@@ -9,7 +9,7 @@ import (
 type DeleteSchool func(ctx context.Context, schoolID int) error
 
 func NewDeleteSchool(
-	schoolRepo school.SchoolRepository,
+	schoolRepo school.Repository,
 ) DeleteSchool {
 	return func(ctx context.Context, schoolID int) error {
 		if schoolID == 0 {

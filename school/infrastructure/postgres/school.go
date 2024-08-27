@@ -52,10 +52,13 @@ func (u *SchoolPostgres) Delete(schoolId int) error {
 
 func (u *SchoolPostgres) GetAll() []domain.School {
 	var School []domain.School
+
 	result := u.Db.Order("id").Find(&School)
+
 	if result.Error != nil {
 		return nil
 	}
+
 	return School
 }
 
@@ -66,7 +69,6 @@ func (u *SchoolPostgres) GetBySchoolID(schoolId int) (School domain.School, err 
 		fmt.Println("school nishta")
 		return school, fmt.Errorf("school not found")
 	}
-	fmt.Println("sc found")
 
 	return school, nil
 }
@@ -76,6 +78,7 @@ func (u *SchoolPostgres) Save(school *domain.School) error {
 	if result.Error != nil {
 		return result.Error
 	}
+
 	return nil
 }
 

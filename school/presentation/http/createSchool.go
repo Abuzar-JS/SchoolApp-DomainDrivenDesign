@@ -27,13 +27,11 @@ func NewCreateSchool(
 		}
 
 		school, err := service(ctx.Request.Context(), request)
-
 		if err != nil {
-			ctx.JSON(http.StatusBadRequest, gin.H{
-				"message": err.Error(),
-			})
+			ctx.JSON(http.StatusBadRequest, returnError(err))
 			return
 		}
+
 		ctx.JSON(http.StatusOK, gin.H{
 			"message": "School created successfully",
 			"school":  school,

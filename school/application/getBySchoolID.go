@@ -10,7 +10,7 @@ import (
 type GetBySchoolId func(ctx context.Context, schoolID int) (*domain.School, error)
 
 func NewGetBySchoolID(
-	schoolRepo school.SchoolRepository,
+	schoolRepo school.Repository,
 ) GetBySchoolId {
 	return func(ctx context.Context, schoolID int) (*domain.School, error) {
 		School, err := schoolRepo.GetBySchoolID(schoolID)
@@ -19,7 +19,6 @@ func NewGetBySchoolID(
 		}
 
 		schoolResponse := domain.School{
-
 			ID:   School.ID,
 			Name: School.Name,
 		}

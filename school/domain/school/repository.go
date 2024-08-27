@@ -2,7 +2,7 @@ package school
 
 import "data/school/domain"
 
-type SchoolRepository interface {
+type Repository interface {
 	ReadRepository
 	WriteRepository
 }

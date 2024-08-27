@@ -22,11 +22,10 @@ func (s CreateSchoolRequest) Validate(ctx context.Context) error {
 type CreateSchool func(ctx context.Context, request CreateSchoolRequest) (*domain.School, error)
 
 func NewCreateSchool(
-	schoolRepo school.SchoolRepository,
+	schoolRepo school.Repository,
 ) CreateSchool {
 	return func(ctx context.Context, request CreateSchoolRequest) (*domain.School, error) {
-		err := request.Validate(ctx)
-		if err != nil {
+		if err := request.Validate(ctx); err != nil {
 			return nil, err
 		}
 
@@ -34,12 +33,10 @@ func NewCreateSchool(
 			Name: request.Name,
 		}
 
-		err = schoolRepo.Save(&schoolRequest)
-		if err != nil {
+		if err := schoolRepo.Save(&schoolRequest); err != nil {
 			return nil, fmt.Errorf("school creation failed")
 		}
 
 		return &schoolRequest, nil
-
 	}
 }

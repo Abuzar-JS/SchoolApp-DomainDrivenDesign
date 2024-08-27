@@ -12,8 +12,8 @@ func NewDeleteSchool(
 	delete application.DeleteSchool,
 ) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		schoolId := ctx.Param("school_id")
-		ID, err := strconv.Atoi(schoolId)
+		schoolID := ctx.Param("school_id")
+		id, err := strconv.Atoi(schoolID)
 		if err != nil {
 			ctx.JSON(http.StatusBadRequest, gin.H{
 				"message": err.Error(),
@@ -21,7 +21,7 @@ func NewDeleteSchool(
 			return
 		}
 
-		err = delete(ctx.Request.Context(), ID)
+		err = delete(ctx.Request.Context(), id)
 		if err != nil {
 			ctx.JSON(http.StatusBadRequest, gin.H{
 				"message": err.Error(),

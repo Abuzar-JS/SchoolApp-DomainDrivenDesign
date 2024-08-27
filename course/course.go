@@ -24,7 +24,6 @@ func InitiateAndRegister(router *gin.Engine, database *gorm.DB, validate *valida
 	http.RegisterRoutes(router, database, validate, sc, st)
 
 	return &client{
-
 		courseRepo: postgres.NewCoursePostgres(database),
 	}
 }

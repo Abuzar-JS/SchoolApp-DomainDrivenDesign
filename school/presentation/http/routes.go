@@ -9,7 +9,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func RegisterRoutes(router *gin.Engine, database *gorm.DB, validate *validator.Validate) *gin.Engine {
+func RegisterRoutes(router *gin.Engine, database *gorm.DB, validate *validator.Validate) {
 	schoolRepo := postgres.NewSchoolPostgres(database)
 
 	schoolRouter := router.Group("/api/v1")
@@ -33,6 +33,4 @@ func RegisterRoutes(router *gin.Engine, database *gorm.DB, validate *validator.V
 	schoolRouter.DELETE("/schools/:school_id", NewDeleteSchool(
 		application.NewDeleteSchool(schoolRepo),
 	))
-
-	return router
 }

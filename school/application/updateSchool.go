@@ -25,7 +25,7 @@ func (s UpdateSchoolRequest) Validate(ctx context.Context) error {
 type UpdateSchool func(ctx context.Context, request UpdateSchoolRequest) error
 
 func NewUpdateSchool(
-	schoolRepo school.SchoolRepository,
+	schoolRepo school.Repository,
 ) UpdateSchool {
 	return func(ctx context.Context, request UpdateSchoolRequest) error {
 		schoolData, err := schoolRepo.GetBySchoolID(request.ID)
@@ -33,7 +33,7 @@ func NewUpdateSchool(
 			return fmt.Errorf("cant't update school ")
 		}
 
-		schoolData.Name = request.Name
+		schoolData.SetName(request.Name)
 		schoolRepo.Update(schoolData)
 
 		return nil

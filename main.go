@@ -25,7 +25,6 @@ func main() {
 
 	schoolClient := school.InitiateAndRegister(ginRouter, db, validate)
 	studentClient := student.InitiateAndRegister(ginRouter, db, validate, schoolClient)
-
 	course.InitiateAndRegister(ginRouter, db, validate, schoolClient, studentClient)
 
 	server := &http.Server{

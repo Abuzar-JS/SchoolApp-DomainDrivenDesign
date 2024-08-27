@@ -18,8 +18,7 @@ func NewGetAllSchool(
 			Status: "Ok",
 			Data:   schoolResponse,
 		}
-		ctx.Header("Content-Type", "application/json")
-		ctx.JSON(http.StatusOK, webResponse)
 
+		ctx.JSON(http.StatusOK, webResponse)
 	}
 }

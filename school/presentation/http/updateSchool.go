@@ -26,7 +26,6 @@ func NewUpdateSchool(
 			ctx.JSON(http.StatusBadRequest, gin.H{
 				"message": err.Error(),
 			})
-
 			return
 		}
 
