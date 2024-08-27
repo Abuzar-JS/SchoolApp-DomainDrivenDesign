@@ -1,7 +1,7 @@
 package application
 
 import (
-	"data/school/domain/school"
+	"context"
 	"data/student/domain"
 	"data/student/domain/student"
 	"fmt"
@@ -11,11 +11,11 @@ type GetStudentBySchoolID func(schoolID int) ([]domain.Student, error)
 
 func NewGetStudentBySchoolID(
 	studentRepo student.StudentRepository,
-	schoolRepo school.SchoolRepository,
+	schoolClient domain.SchoolClient,
 ) GetStudentBySchoolID {
 
 	return func(schoolID int) ([]domain.Student, error) {
-		ID, err := schoolRepo.GetBySchoolID(schoolID)
+		ID, err := schoolClient.GetStudentByIDClient(context.Background(), schoolID)
 		if err != nil {
 			return nil, fmt.Errorf("no school found with ID %v", ID)
 		}

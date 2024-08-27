@@ -3,8 +3,8 @@ package main
 import (
 	"data/config"
 	courseRoutes "data/course/presentation/http"
-	schoolRoutes "data/school/presentation/http"
-	studentRoutes "data/student/presentation/http"
+	"data/school"
+	"data/student"
 
 	"fmt"
 
@@ -23,8 +23,9 @@ func main() {
 
 	ginRouter := gin.Default()
 
-	schoolRoutes.RegisterSchoolRoutes(ginRouter, db, validate)
-	studentRoutes.RegisterStudentRoutes(ginRouter, db, validate)
+	sClient := school.InitiateAndRegister(ginRouter, db, validate)
+	student.InitiateAndRegister(ginRouter, db, validate, sClient)
+
 	courseRoutes.RegisterCourseRoutes(ginRouter, db, validate)
 
 	server := &http.Server{

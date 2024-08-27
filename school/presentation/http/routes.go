@@ -9,7 +9,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func RegisterSchoolRoutes(router *gin.Engine, database *gorm.DB, validate *validator.Validate) *gin.Engine {
+func RegisterRoutes(router *gin.Engine, database *gorm.DB, validate *validator.Validate) *gin.Engine {
 	schoolRepo := postgres.NewSchoolPostgres(database)
 
 	schoolRouter := router.Group("/api/v1")

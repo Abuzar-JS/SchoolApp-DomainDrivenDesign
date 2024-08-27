@@ -1,7 +1,9 @@
 package domain
 
-// import "data/school/infrastructure/postgres"
+import (
+	"context"
+)
 
-// type SchoolClient interface {
-
-// }
+type SchoolClient interface {
+	GetStudentByIDClient(ctx context.Context, schoolID int) (School, error)
+}
