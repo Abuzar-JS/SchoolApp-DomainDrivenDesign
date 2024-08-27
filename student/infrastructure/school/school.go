@@ -15,8 +15,8 @@ func NewSchoolDomainClient(schoolClient school.Client) *SchoolDomainClient {
 	return &SchoolDomainClient{schoolClient: schoolClient}
 }
 
-func (sc SchoolDomainClient) GetStudentByIDClient(ctx context.Context, schoolID int) (domain.School, error) {
-	school, err := sc.schoolClient.GetStudentByIDClient(ctx, schoolID)
+func (sc SchoolDomainClient) GetStudentByIdClient(ctx context.Context, schoolID int) (domain.School, error) {
+	school, err := sc.schoolClient.GetStudentByIdClient(ctx, schoolID)
 	if err != nil {
 		return domain.School{}, fmt.Errorf("failed to get school from school domain client")
 	}

@@ -19,11 +19,10 @@ type Client interface {
 }
 
 func InitiateAndRegister(router *gin.Engine, database *gorm.DB, validate *validator.Validate, sc school.Client) Client {
-	// register tariff routes
 
 	http.RegisterRoutes(router, database, validate, sc)
 
-	// return clien
+	// return client
 	return &client{
 		studentRepo: postgres.NewStudentPostgres(database),
 	}

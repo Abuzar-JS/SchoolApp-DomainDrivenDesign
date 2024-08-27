@@ -17,11 +17,10 @@ type client struct {
 }
 
 type Client interface {
-	// GetStudentByID returns a list of utilities added by a user for a given location
-	GetStudentByIDClient(ctx context.Context, locationID int) (domain.School, error)
+	GetStudentByIdClient(ctx context.Context, locationID int) (domain.School, error)
 }
 
-func (c *client) GetStudentByIDClient(ctx context.Context, schoolID int) (domain.School, error) {
+func (c *client) GetStudentByIdClient(ctx context.Context, schoolID int) (domain.School, error) {
 	return c.schoolRepo.GetBySchoolID(schoolID)
 }
 
@@ -29,7 +28,7 @@ func InitiateAndRegister(router *gin.Engine, database *gorm.DB, validate *valida
 	// register tariff routes
 	http.RegisterRoutes(router, database, validate)
 
-	// return clien
+	// return client
 	return &client{
 		schoolRepo: postgres.NewSchoolPostgres(database),
 	}
