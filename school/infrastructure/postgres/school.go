@@ -18,7 +18,7 @@ func NewSchoolPostgres(Db *gorm.DB) *SchoolPostgres {
 }
 
 type School struct {
-	ID   int    `gorm:"primaryKey;unique;not null" json:"id"`
+	ID   int    `gorm:"primaryKey;unique;not null;foreignKey:SchoolID" json:"id"`
 	Name string `gorm:"type:varchar(255);unique;not null" json:"name"`
 }
 
@@ -63,10 +63,12 @@ func (u *SchoolPostgres) GetAll() []domain.School {
 }
 
 func (u *SchoolPostgres) GetBySchoolID(schoolId int) (School domain.School, err error) {
+
 	var school domain.School
+
 	result := u.Db.First(&school, schoolId)
+
 	if result.Error != nil {
-		fmt.Println("school nishta")
 		return school, fmt.Errorf("school not found")
 	}
 
@@ -74,8 +76,11 @@ func (u *SchoolPostgres) GetBySchoolID(schoolId int) (School domain.School, err 
 }
 
 func (u *SchoolPostgres) Save(school *domain.School) error {
+
 	result := u.Db.Create(school)
+
 	if result.Error != nil {
+
 		return result.Error
 	}
 

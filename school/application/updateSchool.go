@@ -28,12 +28,17 @@ func NewUpdateSchool(
 	schoolRepo school.Repository,
 ) UpdateSchool {
 	return func(ctx context.Context, request UpdateSchoolRequest) error {
+
+		if err := request.Validate(ctx); err != nil {
+			return err
+		}
 		schoolData, err := schoolRepo.GetBySchoolID(request.ID)
 		if err != nil {
-			return fmt.Errorf("cant't update school ")
+			return fmt.Errorf("no school found with id %d", request.ID)
 		}
 
 		schoolData.SetName(request.Name)
+		schoolData.SetID(request.ID)
 		schoolRepo.Update(schoolData)
 
 		return nil

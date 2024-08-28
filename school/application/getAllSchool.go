@@ -11,17 +11,17 @@ func NewGetAllSchool(
 	schoolRepo school.Repository,
 ) GetAllSchool {
 	return func() []domain.School {
-		schools := schoolRepo.GetAll()
+		result := schoolRepo.GetAll()
 
-		// var schools []domain.School
+		var schools []domain.School
 
-		// for _, value := range result {
-		// 	School := domain.School{
-		// 		ID:   value.ID,
-		// 		Name: value.Name,
-		// 	}
-		// 	schools = append(schools, School)
-		// }
+		for _, value := range result {
+			School := domain.School{
+				ID:   value.ID,
+				Name: value.Name,
+			}
+			schools = append(schools, School)
+		}
 
 		return schools
 

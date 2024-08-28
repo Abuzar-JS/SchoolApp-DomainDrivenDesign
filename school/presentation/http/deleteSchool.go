@@ -15,17 +15,13 @@ func NewDeleteSchool(
 		schoolID := ctx.Param("school_id")
 		id, err := strconv.Atoi(schoolID)
 		if err != nil {
-			ctx.JSON(http.StatusBadRequest, gin.H{
-				"message": err.Error(),
-			})
+			ctx.JSON(http.StatusBadRequest, returnError(err))
 			return
 		}
 
 		err = delete(ctx.Request.Context(), id)
 		if err != nil {
-			ctx.JSON(http.StatusBadRequest, gin.H{
-				"message": err.Error(),
-			})
+			ctx.JSON(http.StatusBadRequest, returnError(err))
 			return
 		}
 

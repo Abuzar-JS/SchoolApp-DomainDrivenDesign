@@ -1,7 +1,6 @@
 package postgres
 
 import (
-	"data/school/infrastructure/postgres"
 	"data/student/domain"
 	"fmt"
 
@@ -19,11 +18,10 @@ func NewStudentPostgres(Db *gorm.DB) *StudentPostgres {
 }
 
 type Student struct {
-	ID       int               `gorm:"primaryKey;unique;not null;column:id" json:"id"`
-	Name     string            `gorm:"not null;column:name" json:"name"`
-	Class    string            `gorm:"not null;column:class" json:"class"`
-	SchoolID int               `gorm:"not null;column:school_id" json:"school_id"`
-	School   []postgres.School `gorm:"-"`
+	ID       int    `gorm:"primaryKey;unique;not null;column:id" json:"id"`
+	Name     string `gorm:"not null;column:name" json:"name"`
+	Class    string `gorm:"not null;column:class" json:"class"`
+	SchoolID int    `gorm:"not null;column:school_id" json:"school_id"`
 }
 
 func (s Student) TableName() string {

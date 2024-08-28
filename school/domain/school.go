@@ -8,3 +8,7 @@ type School struct {
 func (s *School) SetName(name string) {
 	s.Name = name
 }
+
+func (s *School) SetID(id int) {
+	s.ID = id
+}

@@ -9,23 +9,21 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+
+
 func NewUpdateSchool(
 	update application.UpdateSchool,
 ) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		var body models.UpdateSchoolRequest
 		if err := ctx.ShouldBindJSON(&body); err != nil {
-			ctx.JSON(http.StatusBadRequest, gin.H{
-				"error": err.Error(),
-			})
+			ctx.JSON(http.StatusBadRequest, returnError(err))
 		}
 
 		schoolID := ctx.Param("school_id")
 		id, err := strconv.Atoi(schoolID)
 		if err != nil {
-			ctx.JSON(http.StatusBadRequest, gin.H{
-				"message": err.Error(),
-			})
+			ctx.JSON(http.StatusBadRequest, returnError(err))
 			return
 		}
 
@@ -38,9 +36,7 @@ func NewUpdateSchool(
 
 		err = update(ctx.Request.Context(), updateRequest)
 		if err != nil {
-			ctx.JSON(http.StatusBadRequest, gin.H{
-				"message": err.Error(),
-			})
+			ctx.JSON(http.StatusBadRequest, returnError(err))
 			return
 		}
 

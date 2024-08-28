@@ -16,6 +16,7 @@ func RegisterRoutes(router *gin.Engine, database *gorm.DB, validate *validator.V
 
 	studentRouter := router.Group("/api/v1/schools")
 
+	//Get Student By School ID
 	studentRouter.GET("/:school_id/students", NewGetStudentBySchoolID(
 		application.NewGetStudentBySchoolID(
 			studentRepo,
@@ -23,18 +24,22 @@ func RegisterRoutes(router *gin.Engine, database *gorm.DB, validate *validator.V
 		),
 	))
 
+	//Get Student By Student ID
 	studentRouter.GET("/:school_id/students/:student_id", NewGetByStudentID(
-		application.NewGetByStudentID(studentRepo),
+		application.NewGetByStudentID(studentRepo,),
 	))
 
+	// Create Student
 	studentRouter.POST("/:school_id/student", NewCreateStudent(
 		application.NewCreateStudent(studentRepo),
 	))
 
+	//Update Student
 	studentRouter.PUT("/:school_id/students/:student_id", NewUpdateStudent(
 		application.NewUpdateStudent(studentRepo),
 	))
 
+	//Delete Student
 	studentRouter.DELETE("/:school_id/students/:student_id", NewDeleteStudent(
 		application.NewDeleteStudent(studentRepo),
 	))

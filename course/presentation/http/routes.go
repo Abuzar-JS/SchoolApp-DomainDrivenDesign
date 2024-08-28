@@ -35,6 +35,7 @@ func RegisterRoutes(router *gin.Engine, database *gorm.DB, validate *validator.V
 			schoolClt.NewSchoolDomainClient(sc)),
 	))
 
+	//Create Course
 	courseRouter.POST("/course", NewCreateCourse(
 		application.NewCreateCourse(courseRepo,
 			studentClt.NewStudentDomainClient(st),

@@ -12,7 +12,7 @@ func NewGetAllSchool(
 	getAll application.GetAllSchool,
 ) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		schoolResponse := getAll
+		schoolResponse := getAll()
 		webResponse := models.Response{
 			Code:   http.StatusOK,
 			Status: "Ok",

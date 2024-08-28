@@ -16,7 +16,6 @@ func NewGetStudentBySchoolID(
 ) GetStudentBySchoolID {
 
 	return func(schoolID int) ([]domain.Student, error) {
-		fmt.Println("sc id", schoolID)
 
 		_, err := schoolClient.GetBySchoolIdClient(context.Background(), schoolID)
 		if err != nil {
