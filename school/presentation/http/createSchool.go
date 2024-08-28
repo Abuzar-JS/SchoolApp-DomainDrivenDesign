@@ -16,9 +16,7 @@ func NewCreateSchool(
 		var body models.CreateSchoolRequest
 
 		if err := ctx.ShouldBindJSON(&body); err != nil {
-			ctx.JSON(http.StatusBadRequest, gin.H{
-				"message": err.Error(),
-			})
+			ctx.JSON(http.StatusBadRequest, returnError(err))
 			return
 		}
 
