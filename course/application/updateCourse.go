@@ -16,7 +16,8 @@ type UpdateCourseRequest struct {
 }
 
 func (c UpdateCourseRequest) Validate(ctx context.Context) error {
-	if *c.Title == "" {
+	if c.Title == nil {
+
 		return fmt.Errorf("title of the course cannot be empty")
 	}
 	if *c.StudentID <= 0 {
@@ -34,15 +35,20 @@ func NewUpdateCourse(
 ) UpdateCourse {
 	return func(ctx context.Context, request UpdateCourseRequest) error {
 
-		_, err := schoolClient.GetBySchoolIdClient(context.Background(), request.SchoolID)
+		err := request.Validate(ctx)
+		if err != nil {
+			return err
+		}
+
+		_, err = schoolClient.GetBySchoolIdClient(context.Background(), request.SchoolID)
 		if err != nil {
 			return fmt.Errorf(" no school found with ID %v", request.SchoolID)
 
 		}
 
-		stID, err := studentClient.GetStudentByIdClient(context.Background(), *request.StudentID)
+		_, err = studentClient.GetStudentByIdClient(context.Background(), *request.StudentID)
 		if err != nil {
-			return fmt.Errorf(" no student found with ID %v", stID)
+			return fmt.Errorf(" no student found with ID %v", *request.StudentID)
 		}
 
 		courseData, err := courseRepo.GetByCourseID(request.CourseID)

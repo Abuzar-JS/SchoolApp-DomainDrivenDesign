@@ -21,6 +21,7 @@ func RegisterRoutes(router *gin.Engine, database *gorm.DB, validate *validator.V
 
 	courseRouter := router.Group("/api/v1/schools/:school_id/students/:student_id")
 
+	//Get Course student ID
 	courseRouter.GET("/courses", GetCourseByStudentID(
 		application.NewGetCourseByStudentID(courseRepo,
 			studentClt.NewStudentDomainClient(st),
@@ -28,6 +29,7 @@ func RegisterRoutes(router *gin.Engine, database *gorm.DB, validate *validator.V
 		),
 	))
 
+	// Get course by course ID
 	courseRouter.GET("/courses/:course_id", GetCourseByID(
 		application.NewGetCourseByID(
 			courseRepo,
@@ -43,12 +45,15 @@ func RegisterRoutes(router *gin.Engine, database *gorm.DB, validate *validator.V
 		),
 	))
 
+	//update course
 	courseRouter.PUT("/courses/:course_id", NewUpdateCourse(
 		application.NewUpdateCourse(courseRepo,
 			studentClt.NewStudentDomainClient(st),
 			schoolClt.NewSchoolDomainClient(sc),
 		),
 	))
+
+	//Delete course
 	courseRouter.DELETE("/courses/:course_id", NewDeleteCourse(
 		application.NewDeleteCourse(courseRepo,
 			studentClt.NewStudentDomainClient(st),

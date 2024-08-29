@@ -35,6 +35,11 @@ func NewUpdateStudent(
 	studentRepo student.StudentRepository,
 ) UpdateStudent {
 	return func(ctx context.Context, studentID int, request UpdateStudentRequest) error {
+
+		err := request.Validate(ctx)
+		if err != nil {
+			return err
+		}
 		studentData, err := studentRepo.GetStudentById(studentID)
 		if err != nil {
 			return fmt.Errorf("student can't update ")
