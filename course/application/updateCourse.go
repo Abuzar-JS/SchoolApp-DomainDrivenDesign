@@ -15,6 +15,7 @@ type UpdateCourseRequest struct {
 	CourseID  int
 }
 
+// Validate func
 func (c UpdateCourseRequest) Validate(ctx context.Context) error {
 	if c.Title == nil {
 
