@@ -2,11 +2,12 @@ package application
 
 import (
 	"context"
-	"data/course/domain"
-	"data/course/domain/course"
-	"data/course/domain/schoolClient"
-	"data/course/domain/studentClient"
 	"fmt"
+
+	"github.com/Abuzar-JS/Go-StudentApp/course/domain"
+	"github.com/Abuzar-JS/Go-StudentApp/course/domain/course"
+	"github.com/Abuzar-JS/Go-StudentApp/course/domain/schoolClient"
+	"github.com/Abuzar-JS/Go-StudentApp/course/domain/studentClient"
 )
 
 type CreateCourseRequest struct {
@@ -34,10 +35,9 @@ func NewCreateCourse(
 ) CreateCourse {
 	return func(ctx context.Context, request CreateCourseRequest) (*domain.Course, error) {
 
-		_, err := schoolClient.GetBySchoolIdClient(context.Background(), request.SchoolID)
+		_, err := schoolClient.GetBySchoolIdClient(ctx, request.SchoolID)
 		if err != nil {
 			return nil, fmt.Errorf(" no school found with ID %v", request.SchoolID)
-
 		}
 
 		stID, err := studentClient.GetStudentByIdClient(context.Background(), request.StudentID)
@@ -55,7 +55,7 @@ func NewCreateCourse(
 			StudentID: request.StudentID,
 		}
 
-		err = courseRepo.Save(&courseModel)
+		err = courseRepo.Save(courseModel)
 		if err != nil {
 			return nil, fmt.Errorf("course creation failed")
 		}

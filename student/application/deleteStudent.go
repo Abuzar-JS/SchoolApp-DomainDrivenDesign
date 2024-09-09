@@ -2,8 +2,9 @@ package application
 
 import (
 	"context"
-	"data/student/domain/student"
 	"fmt"
+
+	"github.com/Abuzar-JS/Go-StudentApp/student/domain/student"
 )
 
 type DeleteStudent func(ctx context.Context, studentID int) error

@@ -1,11 +1,11 @@
 package student
 
 import (
-	"data/school"
-	"data/student/domain"
-	"data/student/domain/student"
-	"data/student/infrastructure/postgres"
-	"data/student/presentation/http"
+	school "github.com/Abuzar-JS/Go-StudentApp/school"
+	"github.com/Abuzar-JS/Go-StudentApp/student/domain"
+	"github.com/Abuzar-JS/Go-StudentApp/student/domain/student"
+	"github.com/Abuzar-JS/Go-StudentApp/student/infrastructure/postgres"
+	"github.com/Abuzar-JS/Go-StudentApp/student/presentation/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"

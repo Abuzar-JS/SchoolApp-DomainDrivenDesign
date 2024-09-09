@@ -1,6 +1,6 @@
 package school
 
-import "data/school/domain"
+import "github.com/Abuzar-JS/Go-StudentApp/school/domain"
 
 type Repository interface {
 	ReadRepository

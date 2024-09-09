@@ -2,10 +2,11 @@ package application
 
 import (
 	"context"
-	"data/course/domain/course"
-	"data/course/domain/schoolClient"
-	"data/course/domain/studentClient"
 	"fmt"
+
+	"github.com/Abuzar-JS/Go-StudentApp/course/domain/course"
+	"github.com/Abuzar-JS/Go-StudentApp/course/domain/schoolClient"
+	"github.com/Abuzar-JS/Go-StudentApp/course/domain/studentClient"
 )
 
 type UpdateCourseRequest struct {
@@ -64,7 +65,7 @@ func NewUpdateCourse(
 		if request.StudentID != nil {
 			courseData.StudentID = *request.StudentID
 		}
-		if err := courseRepo.Update(request.CourseID, courseData); err != nil {
+		if err := courseRepo.Update(request.CourseID, courseDate); err != nil {
 			return fmt.Errorf("update request failed: %w", err)
 		}
 		return nil

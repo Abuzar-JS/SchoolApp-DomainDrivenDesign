@@ -1,9 +1,10 @@
 package http
 
 import (
-	"data/course/application"
 	"net/http"
 	"strconv"
+
+	"github.com/Abuzar-JS/Go-StudentApp/course/application"
 
 	"github.com/gin-gonic/gin"
 )
@@ -60,5 +61,3 @@ func NewDeleteCourse(
 
 	}
 }
-
-

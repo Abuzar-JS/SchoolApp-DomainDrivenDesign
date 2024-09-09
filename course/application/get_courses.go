@@ -2,11 +2,12 @@ package application
 
 import (
 	"context"
-	"data/course/domain"
-	"data/course/domain/course"
-	"data/course/domain/schoolClient"
-	"data/course/domain/studentClient"
 	"fmt"
+
+	"github.com/Abuzar-JS/Go-StudentApp/course/domain"
+	"github.com/Abuzar-JS/Go-StudentApp/course/domain/course"
+	"github.com/Abuzar-JS/Go-StudentApp/course/domain/schoolClient"
+	"github.com/Abuzar-JS/Go-StudentApp/course/domain/studentClient"
 )
 
 type GetCourseRequestByStudentID struct {

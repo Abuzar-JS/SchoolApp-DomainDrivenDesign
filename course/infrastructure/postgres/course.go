@@ -1,9 +1,9 @@
 package postgres
 
 import (
-	"data/course/domain"
-	"data/student/infrastructure/postgres"
 	"fmt"
+
+	"github.com/Abuzar-JS/Go-StudentApp/course/domain"
 
 	"gorm.io/gorm"
 )
@@ -18,11 +18,37 @@ func NewCoursePostgres(Db *gorm.DB) *CoursePostgres {
 	}
 }
 
+type Courses []Course
+
+func (cs Courses) toDomain() domain.Courses {
+	getCourses := make(domain.Courses, len(cs))
+	for _, c := range cs {
+		getCourses = append(getCourses, c.toDomain())
+	}
+
+	return getCourses
+}
+
 type Course struct {
-	ID        int                `gorm:"primary_key;column:id"`
-	Title     string             `gorm:"unique;not null;column:title"`
-	StudentID int                `gorm:"not null;unique;column:student_id"`
-	Student   []postgres.Student `gorm:"-"`
+	ID        int    `gorm:"primary_key;column:id"`
+	Title     string `gorm:"unique;not null;column:title"`
+	StudentID int    `gorm:"not null;unique;column:student_id"`
+}
+
+func (c Course) toDomain() domain.Course {
+	return domain.Course{
+		ID:        c.ID,
+		Title:     c.Title,
+		StudentID: c.StudentID,
+	}
+}
+
+func fromDomain(c domain.Course) Course {
+	return Course{
+		ID:        c.ID,
+		Title:     c.Title,
+		StudentID: c.StudentID,
+	}
 }
 
 func (c Course) TableName() string {
@@ -46,15 +72,22 @@ func (u *CoursePostgres) Delete(courseID int) error {
 	return nil
 }
 
-func (u *CoursePostgres) GetByStudentID(studentID int) ([]domain.Course, error) {
-	var course []domain.Course
-	result := u.Db.Where("student_id=?", studentID).Find(&course)
+func (u *CoursePostgres) GetByStudentID(filterType string, id int) (domain.Courses, error) {
 
-	if result.Error != nil {
-		return nil, fmt.Errorf(" student not found")
+	var course Courses
+
+	query := u.Db
+
+	if filterType == "student" {
+		query = u.Db.Where("student_id=?", id)
 	}
 
-	return course, nil
+	result := query.Find(&course)
+	if result.Error != nil {
+		return nil, fmt.Errorf("courses not found: %w", result.Error)
+	}
+
+	return course.toDomain(), nil
 }
 
 func (u *CoursePostgres) GetByCourseID(courseID int) (Course domain.Course, err error) {
@@ -66,8 +99,9 @@ func (u *CoursePostgres) GetByCourseID(courseID int) (Course domain.Course, err 
 	return course, nil
 }
 
-func (u *CoursePostgres) Save(course *domain.Course) error {
-	result := u.Db.Create(course)
+func (u *CoursePostgres) Save(course domain.Course) error {
+	c := fromDomain(course)
+	result := u.Db.Create(c)
 	if result.Error != nil {
 		return result.Error
 	}

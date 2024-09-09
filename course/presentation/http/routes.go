@@ -1,13 +1,11 @@
 package http
 
 import (
-	"data/course/application"
-	schoolClt "data/course/infrastructure/school"
-	studentClt "data/course/infrastructure/student"
-
-	coursePostgres "data/course/infrastructure/postgres"
-	"data/school"
-	"data/student"
+	"github.com/Abuzar-JS/Go-StudentApp/course/application"
+	schoolClt "github.com/Abuzar-JS/Go-StudentApp/course/infrastructure/school"
+	studentClt "github.com/Abuzar-JS/Go-StudentApp/course/infrastructure/student"
+	coursePostgres "github.com/Abuzar-JS/Go-StudentApp/course/infrastructure/postgres"
+	school "github.com/Abuzar-JS/Go-StudentApp/school"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"

@@ -1,10 +1,10 @@
 package http
 
 import (
-	"data/school"
-	"data/student/application"
-	"data/student/infrastructure/postgres"
-	schoolClient "data/student/infrastructure/school"
+	school "github.com/Abuzar-JS/Go-StudentApp/school"
+	"github.com/Abuzar-JS/Go-StudentApp/student/application"
+	"github.com/Abuzar-JS/Go-StudentApp/student/infrastructure/postgres"
+	schoolClient "github.com/Abuzar-JS/Go-StudentApp/student/infrastructure/school"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
@@ -26,7 +26,7 @@ func RegisterRoutes(router *gin.Engine, database *gorm.DB, validate *validator.V
 
 	//Get Student By Student ID
 	studentRouter.GET("/:school_id/students/:student_id", NewGetByStudentID(
-		application.NewGetByStudentID(studentRepo,),
+		application.NewGetByStudentID(studentRepo),
 	))
 
 	// Create Student

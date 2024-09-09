@@ -2,10 +2,11 @@ package school
 
 import (
 	"context"
-	"data/school/domain"
-	"data/school/domain/school"
-	"data/school/infrastructure/postgres"
-	"data/school/presentation/http"
+
+	"github.com/Abuzar-JS/Go-StudentApp/school/domain"
+	"github.com/Abuzar-JS/Go-StudentApp/school/domain/school"
+	"github.com/Abuzar-JS/Go-StudentApp/school/infrastructure/postgres"
+	"github.com/Abuzar-JS/Go-StudentApp/school/presentation/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"

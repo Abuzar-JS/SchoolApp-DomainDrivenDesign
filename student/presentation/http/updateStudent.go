@@ -1,10 +1,11 @@
 package http
 
 import (
-	"data/student/application"
-	models "data/student/presentation/model"
 	"net/http"
 	"strconv"
+
+	"github.com/Abuzar-JS/Go-StudentApp/student/application"
+	models "github.com/Abuzar-JS/Go-StudentApp/student/presentation/model"
 
 	"github.com/gin-gonic/gin"
 )

@@ -1,9 +1,10 @@
 package http
 
 import (
-	"data/school/application"
-	models "data/school/presentation/model"
 	"net/http"
+
+	"github.com/Abuzar-JS/Go-StudentApp/school/application"
+	models "github.com/Abuzar-JS/Go-StudentApp/school/presentation/model"
 
 	"github.com/gin-gonic/gin"
 )

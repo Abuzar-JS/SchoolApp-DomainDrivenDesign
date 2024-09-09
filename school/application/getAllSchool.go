@@ -1,8 +1,8 @@
 package application
 
 import (
-	"data/school/domain"
-	"data/school/domain/school"
+	"github.com/Abuzar-JS/Go-StudentApp/school/domain"
+	"github.com/Abuzar-JS/Go-StudentApp/school/domain/school"
 )
 
 type GetAllSchool func() []domain.School

@@ -1,9 +1,10 @@
 package application
 
 import (
-	"data/student/domain"
-	"data/student/domain/student"
 	"fmt"
+
+	"github.com/Abuzar-JS/Go-StudentApp/student/domain"
+	"github.com/Abuzar-JS/Go-StudentApp/student/domain/student"
 )
 
 type GetByStudentID func(studentID int) (domain.Student, error)

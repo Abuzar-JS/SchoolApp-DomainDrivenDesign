@@ -2,9 +2,10 @@ package school
 
 import (
 	"context"
-	"data/course/domain/schoolClient"
-	"data/school"
 	"fmt"
+
+	"github.com/Abuzar-JS/Go-StudentApp/course/domain/schoolClient"
+	school "github.com/Abuzar-JS/Go-StudentApp/school"
 )
 
 type SchoolDomainClient struct {

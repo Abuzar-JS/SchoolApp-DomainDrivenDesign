@@ -1,8 +1,9 @@
 package postgres
 
 import (
-	"data/student/domain"
 	"fmt"
+
+	"github.com/Abuzar-JS/Go-StudentApp/student/domain"
 
 	"gorm.io/gorm"
 )

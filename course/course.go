@@ -1,11 +1,11 @@
 package course
 
 import (
-	"data/course/domain/course"
-	"data/course/infrastructure/postgres"
-	"data/course/presentation/http"
-	"data/school"
-	"data/student"
+	"github.com/Abuzar-JS/Go-StudentApp/course/domain/course"
+	"github.com/Abuzar-JS/Go-StudentApp/course/infrastructure/postgres"
+	"github.com/Abuzar-JS/Go-StudentApp/course/presentation/http"
+	school "github.com/Abuzar-JS/Go-StudentApp/school"
+	student "github.com/Abuzar-JS/Go-StudentApp/student"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"

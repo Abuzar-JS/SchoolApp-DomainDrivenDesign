@@ -1,9 +1,10 @@
 package http
 
 import (
-	"data/student/application"
 	"net/http"
 	"strconv"
+
+	"github.com/Abuzar-JS/Go-StudentApp/student/application"
 
 	"github.com/gin-gonic/gin"
 )

@@ -1,4 +1,4 @@
-module data
+module github.com/Abuzar-JS/Go-StudentApp
 
 go 1.22.5
 

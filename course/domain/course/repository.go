@@ -1,6 +1,6 @@
 package course
 
-import "data/course/domain"
+import "github.com/Abuzar-JS/Go-StudentApp/course/domain"
 
 type CourseRepository interface {
 	ReadRepository
@@ -14,6 +14,6 @@ type ReadRepository interface {
 
 type WriteRepository interface {
 	Delete(courseID int) error
-	Save(course *domain.Course) error
-	Update(id int, course domain.Course) error
+	Save(course domain.Course) (domain.Course, error)
+	Update(course domain.Course) error
 }

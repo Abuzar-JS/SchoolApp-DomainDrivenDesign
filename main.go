@@ -1,10 +1,10 @@
 package main
 
 import (
-	"data/config"
-	"data/course"
-	"data/school"
-	"data/student"
+	config "github.com/Abuzar-JS/Go-StudentApp/config"
+	course "github.com/Abuzar-JS/Go-StudentApp/course"
+	school "github.com/Abuzar-JS/Go-StudentApp/school"
+	student "github.com/Abuzar-JS/Go-StudentApp/student"
 
 	"fmt"
 

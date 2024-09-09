@@ -2,10 +2,11 @@ package application
 
 import (
 	"context"
-	"data/student/domain"
-	"data/student/domain/schoolClient"
-	"data/student/domain/student"
 	"fmt"
+
+	"github.com/Abuzar-JS/Go-StudentApp/student/domain"
+	"github.com/Abuzar-JS/Go-StudentApp/student/domain/schoolClient"
+	"github.com/Abuzar-JS/Go-StudentApp/student/domain/student"
 )
 
 type GetStudentBySchoolID func(schoolID int) ([]domain.Student, error)

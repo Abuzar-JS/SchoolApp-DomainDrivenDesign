@@ -1,8 +1,8 @@
 package http
 
 import (
-	"data/school/application"
-	"data/school/infrastructure/postgres"
+	"github.com/Abuzar-JS/Go-StudentApp/school/application"
+	"github.com/Abuzar-JS/Go-StudentApp/school/infrastructure/postgres"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
