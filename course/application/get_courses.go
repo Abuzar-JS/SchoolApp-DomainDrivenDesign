@@ -30,9 +30,12 @@ func NewGetCourseByStudentID(
 
 		}
 
-		stID, err := studentClient.GetStudentByIdClient(context.Background(), request.StudentID)
+		student, err := studentClient.GetStudentByIdClient(context.Background(), request.StudentID)
 		if err != nil {
-			return nil, fmt.Errorf(" no student found with ID %v", stID)
+			return nil, fmt.Errorf(" no student found with ID %v", request.StudentID)
+		}
+		if student.SchoolID != request.SchoolID {
+			return nil, fmt.Errorf("student %v does not belong to school %v", request.StudentID, request.SchoolID)
 		}
 
 		courses, err := courseRepo.GetByStudentID(request.StudentID)

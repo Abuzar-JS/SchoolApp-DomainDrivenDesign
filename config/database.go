@@ -17,7 +17,7 @@ const (
 )
 
 func DatabaseConnection() *gorm.DB {
-	sqlInfo := fmt.Sprintf("host = %s port =%d user =%s password=%s database=%s sslmode= disable", host, port, user, password, database)
+	sqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, database)
 	db, err := gorm.Open(postgres.Open(sqlInfo), &gorm.Config{})
 	if err != nil {
 		log.Println("Error Connecting to Database: ", err)

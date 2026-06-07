@@ -1,0 +1,602 @@
+basePath: /api/v1
+definitions:
+  models.CreateCourseRequest:
+    properties:
+      school_id:
+        maximum: 200
+        minimum: 1
+        type: integer
+      student_id:
+        maximum: 200
+        minimum: 1
+        type: integer
+      title:
+        maxLength: 200
+        minLength: 1
+        type: string
+    required:
+    - school_id
+    - student_id
+    - title
+    type: object
+  models.CreateSchoolRequest:
+    properties:
+      name:
+        maxLength: 200
+        minLength: 1
+        type: string
+    required:
+    - name
+    type: object
+  models.CreateStudentRequest:
+    properties:
+      class:
+        maxLength: 200
+        minLength: 1
+        type: string
+      name:
+        maxLength: 200
+        minLength: 1
+        type: string
+      school_id:
+        maximum: 200
+        minimum: 1
+        type: integer
+    required:
+    - class
+    - name
+    - school_id
+    type: object
+  models.UpdateCourseRequest:
+    properties:
+      course_id:
+        type: integer
+      school_id:
+        type: integer
+      student_id:
+        type: integer
+      title:
+        type: string
+    type: object
+  models.UpdateSchoolRequest:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    required:
+    - id
+    - name
+    type: object
+  models.UpdateStudentRequest:
+    properties:
+      class:
+        type: string
+      name:
+        type: string
+      school_id:
+        type: integer
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: API documentation for schools, students, and courses.
+  title: Go Student App API
+  version: "1.0"
+paths:
+  /school:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: School payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateSchoolRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Create a school
+      tags:
+      - schools
+  /schools:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get all schools
+      tags:
+      - schools
+  /schools/{school_id}:
+    delete:
+      parameters:
+      - description: School ID
+        in: path
+        name: school_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Delete a school
+      tags:
+      - schools
+    get:
+      parameters:
+      - description: School ID
+        in: path
+        name: school_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get a school by ID
+      tags:
+      - schools
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: School ID
+        in: path
+        name: school_id
+        required: true
+        type: integer
+      - description: School update payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdateSchoolRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Update a school
+      tags:
+      - schools
+  /schools/{school_id}/student:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: School ID
+        in: path
+        name: school_id
+        required: true
+        type: integer
+      - description: Student payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateStudentRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Create a student
+      tags:
+      - students
+  /schools/{school_id}/students:
+    get:
+      parameters:
+      - description: School ID
+        in: path
+        name: school_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get students by school ID
+      tags:
+      - students
+  /schools/{school_id}/students/{student_id}:
+    delete:
+      parameters:
+      - description: School ID
+        in: path
+        name: school_id
+        required: true
+        type: integer
+      - description: Student ID
+        in: path
+        name: student_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Delete a student
+      tags:
+      - students
+    get:
+      parameters:
+      - description: School ID
+        in: path
+        name: school_id
+        required: true
+        type: integer
+      - description: Student ID
+        in: path
+        name: student_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get a student by ID
+      tags:
+      - students
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: School ID
+        in: path
+        name: school_id
+        required: true
+        type: integer
+      - description: Student ID
+        in: path
+        name: student_id
+        required: true
+        type: integer
+      - description: Student update payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdateStudentRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Update a student
+      tags:
+      - students
+  /schools/{school_id}/students/{student_id}/course:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: School ID
+        in: path
+        name: school_id
+        required: true
+        type: integer
+      - description: Student ID
+        in: path
+        name: student_id
+        required: true
+        type: integer
+      - description: Course payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateCourseRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Create a course for a student
+      tags:
+      - courses
+  /schools/{school_id}/students/{student_id}/courses:
+    get:
+      parameters:
+      - description: School ID
+        in: path
+        name: school_id
+        required: true
+        type: integer
+      - description: Student ID
+        in: path
+        name: student_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get courses by student ID
+      tags:
+      - courses
+  /schools/{school_id}/students/{student_id}/courses/{course_id}:
+    delete:
+      parameters:
+      - description: School ID
+        in: path
+        name: school_id
+        required: true
+        type: integer
+      - description: Student ID
+        in: path
+        name: student_id
+        required: true
+        type: integer
+      - description: Course ID
+        in: path
+        name: course_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Delete a course
+      tags:
+      - courses
+    get:
+      parameters:
+      - description: School ID
+        in: path
+        name: school_id
+        required: true
+        type: integer
+      - description: Student ID
+        in: path
+        name: student_id
+        required: true
+        type: integer
+      - description: Course ID
+        in: path
+        name: course_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get a course by ID
+      tags:
+      - courses
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: School ID
+        in: path
+        name: school_id
+        required: true
+        type: integer
+      - description: Student ID
+        in: path
+        name: student_id
+        required: true
+        type: integer
+      - description: Course ID
+        in: path
+        name: course_id
+        required: true
+        type: integer
+      - description: Course update payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdateCourseRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Update a course
+      tags:
+      - courses
+securityDefinitions:
+  BearerAuth:
+    description: 'Enter the token as: Bearer <API_AUTH_TOKEN>'
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

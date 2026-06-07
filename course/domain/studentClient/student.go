@@ -1,5 +1,6 @@
 package studentClient
 
 type Student struct {
-	ID int
+	ID       int
+	SchoolID int
 }

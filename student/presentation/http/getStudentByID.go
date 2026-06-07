@@ -10,6 +10,17 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// GetStudentByID godoc
+// @Summary Get a student by ID
+// @Tags students
+// @Produce json
+// @Security BearerAuth
+// @Param school_id path int true "School ID"
+// @Param student_id path int true "Student ID"
+// @Success 200 {object} map[string]interface{}
+// @Failure 400 {object} map[string]string
+// @Failure 404 {object} map[string]string
+// @Router /schools/{school_id}/students/{student_id} [get]
 func NewGetByStudentID(
 	service application.GetByStudentID,
 ) gin.HandlerFunc {

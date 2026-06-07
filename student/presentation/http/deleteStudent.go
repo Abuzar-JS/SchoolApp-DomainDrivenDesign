@@ -9,6 +9,16 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// DeleteStudent godoc
+// @Summary Delete a student
+// @Tags students
+// @Produce json
+// @Security BearerAuth
+// @Param school_id path int true "School ID"
+// @Param student_id path int true "Student ID"
+// @Success 200 {object} map[string]interface{}
+// @Failure 400 {object} map[string]string
+// @Router /schools/{school_id}/students/{student_id} [delete]
 func NewDeleteStudent(
 	delete application.DeleteStudent,
 ) gin.HandlerFunc {

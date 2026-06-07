@@ -9,6 +9,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// GetAllSchools godoc
+// @Summary Get all schools
+// @Tags schools
+// @Produce json
+// @Security BearerAuth
+// @Success 200 {object} map[string]interface{}
+// @Router /schools [get]
 func NewGetAllSchool(
 	getAll application.GetAllSchool,
 ) gin.HandlerFunc {

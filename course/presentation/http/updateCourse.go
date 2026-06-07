@@ -10,6 +10,19 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// UpdateCourse godoc
+// @Summary Update a course
+// @Tags courses
+// @Accept json
+// @Produce json
+// @Security BearerAuth
+// @Param school_id path int true "School ID"
+// @Param student_id path int true "Student ID"
+// @Param course_id path int true "Course ID"
+// @Param request body models.UpdateCourseRequest true "Course update payload"
+// @Success 200 {object} map[string]interface{}
+// @Failure 400 {object} map[string]string
+// @Router /schools/{school_id}/students/{student_id}/courses/{course_id} [put]
 func NewUpdateCourse(
 	service application.UpdateCourse,
 ) gin.HandlerFunc {
@@ -41,11 +54,7 @@ func NewUpdateCourse(
 			return
 		}
 
-		body := models.UpdateCourseRequest{
-			CourseID:  crID,
-			StudentID: &stID,
-			SchoolID:  scID,
-		}
+		body := models.UpdateCourseRequest{}
 
 		if err := ctx.ShouldBindJSON(&body); err != nil {
 			ctx.JSON(http.StatusBadRequest, gin.H{
@@ -54,13 +63,15 @@ func NewUpdateCourse(
 
 			return
 		}
-
-		if body.Title == nil && body.StudentID == nil {
+		if body.Title == nil {
 			ctx.JSON(http.StatusBadRequest, gin.H{
-				"message": "atleast one field is required to update course",
+				"message": "title is required to update course",
 			})
 			return
 		}
+		body.CourseID = crID
+		body.StudentID = &stID
+		body.SchoolID = scID
 
 		request := application.UpdateCourseRequest{
 			Title:     body.Title,

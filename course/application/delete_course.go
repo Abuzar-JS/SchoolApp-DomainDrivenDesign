@@ -30,9 +30,20 @@ func NewDeleteCourse(
 
 		}
 
-		stID, err := studentClient.GetStudentByIdClient(context.Background(), request.StudentID)
+		student, err := studentClient.GetStudentByIdClient(context.Background(), request.StudentID)
 		if err != nil {
-			return fmt.Errorf(" no student found with ID %v", stID)
+			return fmt.Errorf(" no student found with ID %v", request.StudentID)
+		}
+		if student.SchoolID != request.SchoolID {
+			return fmt.Errorf("student %v does not belong to school %v", request.StudentID, request.SchoolID)
+		}
+
+		course, err := courseRepo.GetByCourseID(request.CourseID)
+		if err != nil {
+			return fmt.Errorf("id Does not Exist")
+		}
+		if course.StudentID != request.StudentID {
+			return fmt.Errorf("course %v does not belong to student %v", request.CourseID, request.StudentID)
 		}
 
 		err = courseRepo.Delete(request.CourseID)

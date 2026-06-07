@@ -10,6 +10,18 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// UpdateStudent godoc
+// @Summary Update a student
+// @Tags students
+// @Accept json
+// @Produce json
+// @Security BearerAuth
+// @Param school_id path int true "School ID"
+// @Param student_id path int true "Student ID"
+// @Param request body models.UpdateStudentRequest true "Student update payload"
+// @Success 200 {object} map[string]interface{}
+// @Failure 400 {object} map[string]string
+// @Router /schools/{school_id}/students/{student_id} [put]
 func NewUpdateStudent(
 	update application.UpdateStudent,
 ) gin.HandlerFunc {
