@@ -9,6 +9,18 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// GetCourseByID godoc
+// @Summary Get a course by ID
+// @Tags courses
+// @Produce json
+// @Security BearerAuth
+// @Param school_id path int true "School ID"
+// @Param student_id path int true "Student ID"
+// @Param course_id path int true "Course ID"
+// @Success 200 {object} map[string]interface{}
+// @Failure 400 {object} map[string]string
+// @Failure 404 {object} map[string]string
+// @Router /schools/{school_id}/students/{student_id}/courses/{course_id} [get]
 func GetCourseByID(
 	service application.GetCoursebyID,
 ) gin.HandlerFunc {

@@ -21,5 +21,5 @@ func (sc StudentDomainClient) GetStudentByIdClient(ctx context.Context, studentI
 	if err != nil {
 		return studentClient.Student{}, fmt.Errorf("failed to get student from student domain client")
 	}
-	return studentClient.Student{ID: student.ID}, nil
+	return studentClient.Student{ID: student.ID, SchoolID: student.SchoolID}, nil
 }

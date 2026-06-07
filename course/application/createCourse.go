@@ -23,6 +23,9 @@ func (c CreateCourseRequest) Validate(ctx context.Context) error {
 	if c.StudentID <= 0 {
 		return fmt.Errorf("student id must be greater than 0")
 	}
+	if c.SchoolID <= 0 {
+		return fmt.Errorf("school id must be greater than 0")
+	}
 	return nil
 }
 
@@ -40,9 +43,12 @@ func NewCreateCourse(
 			return nil, fmt.Errorf(" no school found with ID %v", request.SchoolID)
 		}
 
-		stID, err := studentClient.GetStudentByIdClient(context.Background(), request.StudentID)
+		student, err := studentClient.GetStudentByIdClient(ctx, request.StudentID)
 		if err != nil {
-			return nil, fmt.Errorf(" no student found with ID %v", stID)
+			return nil, fmt.Errorf(" no student found with ID %v", request.StudentID)
+		}
+		if student.SchoolID != request.SchoolID {
+			return nil, fmt.Errorf("student %v does not belong to school %v", request.StudentID, request.SchoolID)
 		}
 
 		err = request.Validate(ctx)
@@ -55,12 +61,12 @@ func NewCreateCourse(
 			StudentID: request.StudentID,
 		}
 
-		err = courseRepo.Save(courseModel)
+		savedCourse, err := courseRepo.Save(courseModel)
 		if err != nil {
 			return nil, fmt.Errorf("course creation failed")
 		}
 
-		return &courseModel, nil
+		return &savedCourse, nil
 
 	}
 }

@@ -10,6 +10,18 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// CreateCourse godoc
+// @Summary Create a course for a student
+// @Tags courses
+// @Accept json
+// @Produce json
+// @Security BearerAuth
+// @Param school_id path int true "School ID"
+// @Param student_id path int true "Student ID"
+// @Param request body models.CreateCourseRequest true "Course payload"
+// @Success 200 {object} map[string]interface{}
+// @Failure 400 {object} map[string]string
+// @Router /schools/{school_id}/students/{student_id}/course [post]
 func NewCreateCourse(
 	service application.CreateCourse,
 ) gin.HandlerFunc {
@@ -33,10 +45,7 @@ func NewCreateCourse(
 			return
 		}
 
-		body := models.CreateCourseRequest{
-			StudentID: stID,
-			SchoolID:  scID,
-		}
+		body := models.CreateCourseRequest{}
 
 		if err := ctx.ShouldBindJSON(&body); err != nil {
 			ctx.JSON(http.StatusBadRequest, gin.H{
@@ -45,6 +54,8 @@ func NewCreateCourse(
 
 			return
 		}
+		body.StudentID = stID
+		body.SchoolID = scID
 
 		request := application.CreateCourseRequest{
 			Title:     body.Title,

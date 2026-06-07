@@ -10,6 +10,17 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// CreateStudent godoc
+// @Summary Create a student
+// @Tags students
+// @Accept json
+// @Produce json
+// @Security BearerAuth
+// @Param school_id path int true "School ID"
+// @Param request body models.CreateStudentRequest true "Student payload"
+// @Success 200 {object} map[string]interface{}
+// @Failure 400 {object} map[string]string
+// @Router /schools/{school_id}/student [post]
 func NewCreateStudent(
 	service application.CreateStudent,
 ) gin.HandlerFunc {

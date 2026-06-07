@@ -31,15 +31,21 @@ func NewGetCourseByID(
 
 		}
 
-		stID, err := studentClient.GetStudentByIdClient(context.Background(), request.StudentID)
+		student, err := studentClient.GetStudentByIdClient(context.Background(), request.StudentID)
 		if err != nil {
-			return domain.Course{}, fmt.Errorf(" no student found with ID %v", stID)
+			return domain.Course{}, fmt.Errorf(" no student found with ID %v", request.StudentID)
+		}
+		if student.SchoolID != request.SchoolID {
+			return domain.Course{}, fmt.Errorf("student %v does not belong to school %v", request.StudentID, request.SchoolID)
 		}
 
 		course, err := courseRepo.GetByCourseID(request.CourseID)
 
 		if err != nil {
 			return domain.Course{}, fmt.Errorf("could not retrieve course: %w", err)
+		}
+		if course.StudentID != request.StudentID {
+			return domain.Course{}, fmt.Errorf("course %v does not belong to student %v", request.CourseID, request.StudentID)
 		}
 
 		return course, nil

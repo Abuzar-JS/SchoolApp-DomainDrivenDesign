@@ -9,6 +9,16 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// CreateSchool godoc
+// @Summary Create a school
+// @Tags schools
+// @Accept json
+// @Produce json
+// @Security BearerAuth
+// @Param request body models.CreateSchoolRequest true "School payload"
+// @Success 200 {object} map[string]interface{}
+// @Failure 400 {object} map[string]string
+// @Router /school [post]
 func NewCreateSchool(
 	service application.CreateSchool,
 ) gin.HandlerFunc {

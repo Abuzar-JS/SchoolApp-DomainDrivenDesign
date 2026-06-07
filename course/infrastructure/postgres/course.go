@@ -22,17 +22,17 @@ type Courses []Course
 
 func (cs Courses) toDomain() domain.Courses {
 	getCourses := make(domain.Courses, len(cs))
-	for _, c := range cs {
-		getCourses = append(getCourses, c.toDomain())
+	for i, c := range cs {
+		getCourses[i] = c.toDomain()
 	}
 
 	return getCourses
 }
 
 type Course struct {
-	ID        int    `gorm:"primary_key;column:id"`
+	ID        int    `gorm:"primaryKey;column:id"`
 	Title     string `gorm:"unique;not null;column:title"`
-	StudentID int    `gorm:"not null;unique;column:student_id"`
+	StudentID int    `gorm:"not null;column:student_id"`
 }
 
 func (c Course) toDomain() domain.Course {
@@ -57,7 +57,7 @@ func (c Course) TableName() string {
 
 func (u *CoursePostgres) Delete(courseID int) error {
 
-	var course domain.Course
+	var course Course
 
 	result := u.Db.Where("id = ?", courseID).Delete(&course)
 
@@ -72,47 +72,42 @@ func (u *CoursePostgres) Delete(courseID int) error {
 	return nil
 }
 
-func (u *CoursePostgres) GetByStudentID(filterType string, id int) (domain.Courses, error) {
+func (u *CoursePostgres) GetByStudentID(studentID int) ([]domain.Course, error) {
 
-	var course Courses
+	var courses Courses
 
-	query := u.Db
-
-	if filterType == "student" {
-		query = u.Db.Where("student_id=?", id)
-	}
-
-	result := query.Find(&course)
+	result := u.Db.Where("student_id = ?", studentID).Find(&courses)
 	if result.Error != nil {
 		return nil, fmt.Errorf("courses not found: %w", result.Error)
 	}
 
+	return courses.toDomain(), nil
+}
+
+func (u *CoursePostgres) GetByCourseID(courseID int) (domain.Course, error) {
+	var course Course
+	result := u.Db.First(&course, courseID)
+	if result.Error != nil {
+		return domain.Course{}, fmt.Errorf("course not found")
+	}
 	return course.toDomain(), nil
 }
 
-func (u *CoursePostgres) GetByCourseID(courseID int) (Course domain.Course, err error) {
-	var course domain.Course
-	result := u.Db.First(&course, courseID)
-	if result.Error != nil {
-		return course, fmt.Errorf("course not found")
-	}
-	return course, nil
-}
-
-func (u *CoursePostgres) Save(course domain.Course) error {
+func (u *CoursePostgres) Save(course domain.Course) (domain.Course, error) {
 	c := fromDomain(course)
-	result := u.Db.Create(c)
+	result := u.Db.Create(&c)
 	if result.Error != nil {
-		return result.Error
+		return domain.Course{}, result.Error
 	}
-	return nil
+	return c.toDomain(), nil
 }
 
-func (u *CoursePostgres) Update(id int, course domain.Course) error {
+func (u *CoursePostgres) Update(course domain.Course) error {
+	c := fromDomain(course)
 
-	result := u.Db.Model(domain.Course{}).Where("id=?", course.ID).Updates(course)
+	result := u.Db.Model(&Course{}).Where("id = ?", course.ID).Updates(c)
 	if result.Error != nil {
-		return fmt.Errorf("can't update")
+		return fmt.Errorf("can't update: %w", result.Error)
 	}
 
 	return nil

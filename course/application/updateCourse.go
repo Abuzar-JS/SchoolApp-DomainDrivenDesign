@@ -18,9 +18,17 @@ type UpdateCourseRequest struct {
 
 // Validate func
 func (c UpdateCourseRequest) Validate(ctx context.Context) error {
-	if c.Title == nil {
-
+	if c.CourseID <= 0 {
+		return fmt.Errorf("course id must be greater than 0")
+	}
+	if c.SchoolID <= 0 {
+		return fmt.Errorf("school id must be greater than 0")
+	}
+	if c.Title != nil && *c.Title == "" {
 		return fmt.Errorf("title of the course cannot be empty")
+	}
+	if c.StudentID == nil {
+		return fmt.Errorf("student id is required")
 	}
 	if *c.StudentID <= 0 {
 		return fmt.Errorf("student id must be greater than 0")
@@ -48,14 +56,20 @@ func NewUpdateCourse(
 
 		}
 
-		_, err = studentClient.GetStudentByIdClient(context.Background(), *request.StudentID)
+		student, err := studentClient.GetStudentByIdClient(context.Background(), *request.StudentID)
 		if err != nil {
 			return fmt.Errorf(" no student found with ID %v", *request.StudentID)
+		}
+		if student.SchoolID != request.SchoolID {
+			return fmt.Errorf("student %v does not belong to school %v", *request.StudentID, request.SchoolID)
 		}
 
 		courseData, err := courseRepo.GetByCourseID(request.CourseID)
 		if err != nil {
 			return fmt.Errorf("can't update course ")
+		}
+		if courseData.StudentID != *request.StudentID {
+			return fmt.Errorf("course %v does not belong to student %v", request.CourseID, *request.StudentID)
 		}
 
 		if request.Title != nil {
@@ -65,7 +79,7 @@ func NewUpdateCourse(
 		if request.StudentID != nil {
 			courseData.StudentID = *request.StudentID
 		}
-		if err := courseRepo.Update(request.CourseID, courseDate); err != nil {
+		if err := courseRepo.Update(courseData); err != nil {
 			return fmt.Errorf("update request failed: %w", err)
 		}
 		return nil
